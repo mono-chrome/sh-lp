@@ -1,27 +1,41 @@
-import { Hono } from 'hono'
-import { logger } from 'hono/logger'
-import { renderer } from './renderer'
+import {Hono} from 'hono';
+import {renderer} from './renderer';
 
-const app = new Hono()
+const app = new Hono();
+const recognizedCommands = ['help'];
 
-export const customLogger = (message: string, ...rest: string[]) => {
-  console.log(message, ...rest)
-}
+app.use(renderer);
 
-app.use(renderer)
-
-app.use(logger(customLogger))
-
-app.get('/', (c) => {
-  const domainArray = c.req.url.split('.');
-  console.log(domainArray)
-  // customLogger('incoming connection', JSON.stringify(c))
+app.get('*', (c) => {
+  const path = c.req.path.split('/');
+  const instructions = path.filter((elem) => elem.trim() !== '');
+  let isRegisteredCommand = false;
+  if (instructions.length) {
+    isRegisteredCommand = instructions.some((instruction) =>
+      recognizedCommands.includes(instruction)
+    );
+  }
+  const command = commands(instructions);
   return c.render(
     <section>
-      <h1>sbstn-sh</h1>
+      <h1>sbstn.sh</h1>
+      {instructions.length ? (
+        isRegisteredCommand ? (
+          <h3>{command}</h3>
+        ) : (
+          <h2>{command}</h2>
+        )
+      ) : null}
     </section>,
-    { title: 'command not found: www' }
-  )
-})
+    {title: `sbstn.sh`}
+  );
+});
 
-export default app
+function commands(instructions: Array<string>): string {
+  if (instructions.includes('help')) {
+    return 'try another command';
+  }
+
+  return instructions.join('>');
+}
+export default app;

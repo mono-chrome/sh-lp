@@ -25,7 +25,7 @@ section {
     grid-template-areas: 
         ". . ."
         ". info-content ."
-        ". . .";
+        ". console-content .";
 }
 section h1 {
     grid-area: info-content;
@@ -34,4 +34,34 @@ section h1 {
     padding: 1em 1.1em;
     border: 1px solid #555;
     border-radius: 6px;
+}
+section h3 {
+    grid-area: console-content;
+    background: #2f2f2f;
+    font-size: 1.5em;
+    font-weight: 100;
+    padding: 1em 1.1em;
+    border-left: 3px solid #3a945e;
+    border-radius: 4px;
+    color: beige;
+}
+section h2 {
+    grid-area: console-content;
+    background: #2f2f2f;
+    font-weight: 100;
+    padding: 1em 1.1em;
+    border-left: 3px solid #943a3a;
+    border-radius: 4px;
+    color: beige;
+    animation: hoverEffect 3s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+@keyframes hoverEffect {
+    0%, 100% {
+        transform: translateY(0);
+        border-left-color: #943a3a;
+    }
+    50% {
+        transform: translateY(-4px);
+        border-left-color: #d92121;
+    }
 }
