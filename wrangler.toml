@@ -2,8 +2,12 @@ name = "sh-lp"
 compatibility_date = "2024-08-28"
 pages_build_output_dir = "./dist"
 
-# [vars]
-# MY_VAR = "my-variable"
+[[kv_namespaces]]
+binding = "KV"
+id = "6628af007e344e88b823b469274064c8"
+
+[vars]
+MY_VAR = "my-variable"
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"

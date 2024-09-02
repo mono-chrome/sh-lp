@@ -4,6 +4,11 @@ type Head = {
   title?: string;
 };
 
+type Bindings = {
+  KV: KVNamespace;
+  MY_VAR: string;
+};
+
 declare module 'hono' {
   interface ContextRenderer {
     (content: string | Promise<string>, head?: Head):
